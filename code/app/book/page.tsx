@@ -2,6 +2,7 @@
 
 import { useMemo, useRef } from 'react'
 import { VideoBackground } from '@/components/video-background'
+import { getOptimizedImage, getResponsiveImageSrcset } from '@/lib/image-optimization'
 
 export default function BookPage() {
   // Generate stable, deterministic image URLs based on index to enable proper caching
@@ -50,7 +51,9 @@ export default function BookPage() {
             {/* Book cover */}
             <div className="relative w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl aspect-[2/3]">
               <img
-                src="/book-cover.png"
+                src={getOptimizedImage('/book-cover.png', { width: 1200, format: 'webp', quality: 90 })}
+                srcSet={getResponsiveImageSrcset('/book-cover.png', [640, 768, 1024, 1280, 1920])}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 45vw, 40vw"
                 alt="Book cover"
                 loading="eager"
                 fetchPriority="high"
