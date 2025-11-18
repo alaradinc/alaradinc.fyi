@@ -1,87 +1,109 @@
 'use client'
 
+import Image from 'next/image'
+import { VideoBackground } from '@/components/video-background'
+
 export default function PressPage() {
   const pressArticles = [
     {
-      title: 'The Digital Storyteller Redefining Creative Technology',
-      publication: 'Marie Claire',
-      date: 'April 2024',
-      url: '#',
+      title: "Knidos'tan esen yolculuk",
+      titleEn: 'Journey from Knidos',
+      publication: 'Marie Claire Turkey',
+      date: '2023',
+      url: 'https://www.marieclaire.com.tr/knidostan-esen-yolculuk/',
+      image: '/placeholder.svg',
     },
     {
-      title: 'Why This Book Is Changing How We Think About Walking',
-      publication: 'The Guardian',
-      date: 'March 2024',
-      url: '#',
+      title: "Alara Dinç'ten soluksuz bir macera: Denizin Kayıp Kızı",
+      titleEn: 'A Breathless Adventure from Alara Dinç: The Lost Daughter of the Sea',
+      publication: 'Oksijen Gazete',
+      date: '2023',
+      url: 'https://gazeteoksijen.com/o2/alara-dincten-soluksuz-bir-macera-denizin-kayip-kizi-189561',
+      image: '/placeholder.svg',
     },
     {
-      title: 'Creator Spotlight: Building Immersive Visual Experiences',
-      publication: 'Wired',
-      date: 'February 2024',
-      url: '#',
+      title: '"Denizin Kayıp Kızı" Üzerine Sohbet',
+      titleEn: 'A Conversation with Alara Dinç about "The Lost Daughter of the Sea"',
+      publication: 'Alem.com.tr',
+      date: '2023',
+      url: 'https://www.alem.com.tr/yasam/alara-dinc-ile-denizin-kayip-kizi-uzerine-sohbet-1082687',
+      image: '/placeholder.svg',
     },
     {
-      title: 'The New Wave of Digital Memoir',
-      publication: 'Vogue',
-      date: 'January 2024',
-      url: '#',
+      title: 'Girişimcilik ve yazarlık bir arada',
+      titleEn: 'Entrepreneurship and Writing Together',
+      publication: 'Istanbul Life Magazine',
+      date: '2023',
+      url: 'https://www.magzter.com/stories/lifestyle/Istanbul-Life/1697713437970',
+      image: '/placeholder.svg',
     },
     {
-      title: 'Tech Meets Art: A Conversation',
-      publication: 'Forbes',
-      date: 'December 2023',
-      url: '#',
+      title: 'Tarihi eser yağmasına çığlık atmak istedim!',
+      titleEn: 'I Wanted to Scream at the Historical Artifact Looting!',
+      publication: 'Sözcü',
+      date: '2017',
+      url: 'https://www.sozcu.com.tr/tarihi-eser-yagmasina-ciglik-atmak-istedim-wp1908709',
+      image: '/placeholder.svg',
     },
     {
-      title: 'Visual Poetry in the Digital Age',
-      publication: 'Elle',
-      date: 'November 2023',
-      url: '#',
+      title: 'Dinç kardeşler ilham veriyor',
+      titleEn: 'The Dinç Siblings Inspire',
+      publication: 'QBlog',
+      date: '2023',
+      url: 'https://blog.quicksigorta.com/yasam/dinc-kardesler-ilham-veriyor-2800',
+      image: '/placeholder.svg',
     }
   ]
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="fixed inset-0 w-full h-full object-cover z-0"
-      >
-        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3327031-hd_1920_1080_24fps-0hIxkx8XhkHqRJm7bJF5v2cPXsfEJ0.mp4" type="video/mp4" />
-      </video>
+      <VideoBackground opacity={0.5} />
 
-      <div className="fixed inset-0 bg-black/50 z-0" />
-
-      <main className="relative z-10 max-w-3xl mx-auto px-8 py-16">
+      <main className="relative z-10 max-w-5xl mx-auto px-8 py-16">
         <div className="space-y-12 text-white">
-          <p className="text-lg">
+          <p className="text-xl">
             <a href="/" className="underline hover:text-white/70 transition-colors">
               back
             </a>
           </p>
 
           <div className="space-y-8">
-            <h1 className="text-4xl font-light">press</h1>
+            <h1 className="text-5xl font-light">press</h1>
 
-            <ul className="space-y-6">
+            <div className="space-y-8">
               {pressArticles.map((article, index) => (
-                <li key={index}>
-                  <a
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block space-y-1 hover:text-white/70 transition-colors"
-                  >
-                    <h2 className="text-xl underline">{article.title}</h2>
-                    <p className="text-lg text-white/60">
-                      {article.publication} — {article.date}
-                    </p>
-                  </a>
-                </li>
+                <a
+                  key={index}
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-5 gap-6 p-6 rounded-sm border border-white/10 hover:border-white/20 transition-all">
+                    {/* Article Image */}
+                    <div className="relative aspect-video md:aspect-square overflow-hidden rounded-sm max-w-[200px]">
+                      <Image
+                        src={article.image || '/placeholder.svg'}
+                        alt={article.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 200px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        unoptimized
+                      />
+                    </div>
+                    
+                    {/* Article Content */}
+                    <div className="md:col-span-4 space-y-2">
+                      <h2 className="text-2xl underline group-hover:text-white transition-colors">{article.title}</h2>
+                      <p className="text-lg text-white/50 italic">{article.titleEn}</p>
+                      <p className="text-xl text-white/60">
+                        {article.publication} — {article.date}
+                      </p>
+                    </div>
+                  </div>
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </main>

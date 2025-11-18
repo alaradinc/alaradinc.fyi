@@ -1,50 +1,46 @@
 'use client'
 
-export default function BookPage() {
-  const articles = [
-    {
-      title: 'A Journey Through Digital Landscapes',
-      publication: 'The Creative Review',
-      date: 'March 2024',
-      url: '#'
-    },
-    {
-      title: 'Reflections on Modern Creativity',
-      publication: 'Design Matters',
-      date: 'February 2024',
-      url: '#'
-    },
-    {
-      title: 'The Art of Visual Storytelling',
-      publication: 'Medium',
-      date: 'January 2024',
-      url: '#'
-    }
-  ]
+import { useMemo, useRef } from 'react'
+import Image from 'next/image'
+import { VideoBackground } from '@/components/video-background'
 
-  const readerReviews = Array.from({ length: 50 }, (_, i) => ({
-    image: `/placeholder.svg?height=${Math.random() > 0.5 ? 400 : 300}&width=${Math.random() > 0.5 ? 300 : 250}`,
-    alt: `Reader review ${i + 1}`
-  }))
+export default function BookPage() {
+  // Generate stable, deterministic image URLs based on index to enable proper caching
+  // useMemo ensures the array is only created once and remains stable across re-renders
+  const readerReviews = useMemo(() => {
+    return Array.from({ length: 50 }, (_, i) => {
+      // Use index modulo to create deterministic variations
+      const height = i % 3 === 0 ? 400 : i % 3 === 1 ? 300 : 350
+      const width = i % 2 === 0 ? 300 : 250
+      return {
+        image: `/placeholder.svg?height=${height}&width=${width}&id=${i}`,
+        alt: `Reader review ${i + 1}`
+      }
+    })
+  }, [])
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' })
+    }
+  }
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' })
+    }
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="fixed inset-0 w-full h-full object-cover z-0"
-      >
-        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3327031-hd_1920_1080_24fps-0hIxkx8XhkHqRJm7bJF5v2cPXsfEJ0.mp4" type="video/mp4" />
-      </video>
+      <VideoBackground opacity={0.4} />
 
-      <div className="fixed inset-0 bg-black/40 z-0" />
-
-      <main className="relative z-10 max-w-6xl mx-auto px-8 py-16">
+      <main className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         <div className="space-y-16 text-white/90">
           {/* Back link */}
-          <p className="text-lg font-light">
+          <p className="text-xl font-light">
             <a href="/" className="underline hover:text-white transition-colors">
               back
             </a>
@@ -53,72 +49,77 @@ export default function BookPage() {
           {/* Book details section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Book cover */}
-            <div className="w-full max-w-md">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Wv0rlnrcgub1PjvvXG8tiQo9b3oUwy.png"
+            <div className="relative w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl aspect-[2/3]">
+              <Image
+                src="/book-cover.png"
                 alt="Book cover"
-                className="w-full shadow-2xl"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 45vw, 40vw"
+                className="object-contain"
+                priority
               />
             </div>
 
             {/* Book information */}
             <div className="space-y-8">
               <div>
-                <h1 className="text-5xl font-light tracking-wide mb-2">
-                  Things Become Other Things
+                <h1 className="text-6xl font-light tracking-wide mb-2">
+                  Denizin Kayıp Kızı
                 </h1>
-                <p className="text-2xl font-light text-white/70 mb-4">
-                  A Walking Memoir
+                <p className="text-3xl font-light text-white/70 mb-4">
+                  The Lost Daughter of the Sea
                 </p>
-                <p className="text-lg font-light text-white/60">
+                <p className="text-xl font-light text-white/60">
                   Published by{' '}
-                  <a href="#" className="underline hover:text-white transition-colors">
-                    Random House
+                  <a href="https://www.epsilonyayinevi.com/" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">
+                    Epsilon Yayınları
                   </a>
-                  {' '}— May, 2025.
+                  {' '}— 2017.
                 </p>
               </div>
 
-              <div className="space-y-4 text-lg font-light leading-relaxed">
-                <p className="italic">
-                  "Luminous, poignant, unflinching and kind, <span className="font-normal">THINGS BECOME OTHER THINGS</span> reads like a future classic of its genre."
-                </p>
-                <p className="text-white/60">
-                  — David Mitchell, New York Times bestselling author of <span className="italic">Cloud Atlas</span>
-                </p>
-              </div>
-
-              <div className="space-y-4 text-lg font-light leading-relaxed">
+              <div className="space-y-4 text-xl font-light leading-relaxed">
                 <p>
-                  For lifelong walkers and Japanophiles who crave a sense of wonder off the tourist map, <span className="italic">Things Become Other Things</span> is a photo-rich narrative that shows how ordinary countryside lanes transform into portals of culture.
+                  In <span className="italic">Denizin Kayıp Kızı</span> (The Lost Daughter of the Sea), the protagonist Asya embarks on a summer vacation to her grandmother's house in Datça, a beautiful coastal town in Turkey. Upon arrival, she encounters a series of mysterious events and befriends a group of local youths.
+                </p>
+                <p>
+                  Together, they stumble upon a corpse on the shore, leading them into a perilous adventure involving historical artifact smuggling. The narrative delves into themes of curiosity, danger, and the thin line between life and death as Asya navigates through the mysteries of the coastal town.
+                </p>
+                <p>
+                  This mystery novel explores the intersection of youth, adventure, and the secrets hidden beneath the surface of a seemingly peaceful seaside community.
                 </p>
               </div>
 
               {/* Purchase links */}
               <div className="space-y-3">
-                <p className="text-lg font-light">Nab a copy at:</p>
-                <div className="flex flex-col gap-2 text-lg font-light">
-                  <a href="#" className="underline hover:text-white transition-colors">
-                    Amazon
+                <p className="text-xl font-light">Find a copy at:</p>
+                <div className="flex flex-col gap-2 text-xl font-light">
+                  
+                  <a href="https://www.epsilonyayinevi.com/denizin-kayip-kizi-9786051732220" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">
+                    Epsilon Publishing House
                   </a>
-                  <a href="#" className="underline hover:text-white transition-colors">
-                    Bookshop.org
-                  </a>
-                  <a href="#" className="underline hover:text-white transition-colors">
-                    Apple Books
-                  </a>
-                  <a href="#" className="underline hover:text-white transition-colors">
-                    Barnes & Noble
-                  </a>
+                </div>
+                <p className="text-lg font-light text-white/60 pt-2">
+                  Note: Currently available in Turkish. English translation coming soon.
+                </p>
+              </div>
+
+              {/* Book details */}
+              <div className="space-y-3 pt-4 border-t border-white/10">
+                <p className="text-xl font-light">Book Details:</p>
+                <div className="space-y-1 text-lg font-light text-white/80">
+                  <p>ISBN: 9786051732220</p>
+                  <p>Language: Turkish</p>
+                  <p>Genre: Mystery / Adventure</p>
                 </div>
               </div>
 
               {/* Review links */}
               <div className="space-y-3 pt-4 border-t border-white/10">
-                <p className="text-lg font-light">Read reviews on:</p>
-                <div className="flex flex-col gap-2 text-lg font-light">
+                <p className="text-xl font-light">Read reviews on:</p>
+                <div className="flex flex-col gap-2 text-xl font-light">
                   <a 
-                    href="#" 
+                    href="https://www.goodreads.com/book/show/35894327-denizin-kay-p-k-z" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline hover:text-white transition-colors"
@@ -126,58 +127,100 @@ export default function BookPage() {
                     Goodreads
                   </a>
                   <a 
-                    href="#" 
+                    href="https://1000kitap.com/kitap/denizin-kayip-kizi--112982" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline hover:text-white transition-colors"
                   >
-                    Kitapyurdu
+                    1000kitap
                   </a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="space-y-4 pt-8 border-t border-white/10">
-            <h2 className="text-2xl font-light tracking-wide">What Readers Are Saying</h2>
-            <div className="relative h-32 overflow-hidden rounded-sm border border-white/10 bg-black/20 backdrop-blur-sm">
-              <div className="flex gap-3 animate-scroll-left hover:pause-animation">
-                {[...readerReviews, ...readerReviews].map((review, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 h-28 w-20 overflow-hidden rounded-sm border border-white/10 bg-black/30"
+          {/* What Readers Are Saying and Audiobook section */}
+          <div className="pt-8 border-t border-white/10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              {/* What Readers Are Saying section */}
+              <div className="space-y-4 flex flex-col h-full">
+                <h2 className="text-3xl font-light tracking-wide">What Readers Are Saying</h2>
+                <div className="relative aspect-video overflow-hidden rounded-sm flex-1 group">
+                  <div 
+                    ref={scrollContainerRef}
+                    className="absolute inset-0 flex flex-wrap gap-4 overflow-x-auto overflow-y-hidden scrollbar-hide"
                   >
-                    <img
-                      src={review.image || "/placeholder.svg"}
-                      alt={review.alt}
-                      className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                    />
+                    {[...readerReviews, ...readerReviews].map((review, index) => (
+                      <div
+                        key={index}
+                        className="relative flex-shrink-0 h-[calc(50%-0.5rem)] w-32 overflow-hidden rounded-sm"
+                      >
+                        <Image
+                          src={review.image || "/placeholder.svg"}
+                          alt={review.alt}
+                          fill
+                          sizes="128px"
+                          className="object-cover opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                  {/* Scroll buttons */}
+                  <button
+                    onClick={scrollLeft}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-auto"
+                    aria-label="Scroll left"
+                  >
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={scrollRight}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-auto"
+                    aria-label="Scroll right"
+                  >
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Audiobook section */}
+              <div className="space-y-4">
+                <h2 className="text-3xl font-light tracking-wide">Audiobook</h2>
+                <a
+                  href="https://youtu.be/YMiwQdrCaNI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="relative aspect-video overflow-hidden rounded-sm">
+                    <Image
+                      src="https://img.youtube.com/vi/YMiwQdrCaNI/maxresdefault.jpg"
+                      alt="Audiobook video thumbnail"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Play button overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                        <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-xl font-light mt-3 underline group-hover:text-white transition-colors">
+                    Listen to the audiobook
+                  </p>
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Articles section */}
-          <div className="space-y-8 pt-8 border-t border-white/10">
-            <h2 className="text-3xl font-light tracking-wide">Related Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {articles.map((article, index) => (
-                <a
-                  key={index}
-                  href={article.url}
-                  className="group space-y-2 p-6 rounded-sm border border-white/10 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/20 transition-all"
-                >
-                  <h3 className="text-xl font-light underline group-hover:text-white transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm font-light text-white/60">
-                    {article.publication} · {article.date}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
       </main>
     </div>
