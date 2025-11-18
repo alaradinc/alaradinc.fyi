@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "pages:build": "cd code && npm install && npm run pages:build"
+    "pages:build": "cd code && npm install --legacy-peer-deps && npm run pages:build"
   }
 }
 

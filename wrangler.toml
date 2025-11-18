@@ -2,6 +2,5 @@ name = "alaradinc-fyi"
 compatibility_date = "2025-11-18"
 compatibility_flags = ["nodejs_compat"]
 
-[env.production]
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = "code/.vercel/output/static"
 
