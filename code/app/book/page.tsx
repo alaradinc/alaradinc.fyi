@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useRef } from 'react'
-import Image from 'next/image'
 import { VideoBackground } from '@/components/video-background'
 
 export default function BookPage() {
@@ -50,13 +49,10 @@ export default function BookPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Book cover */}
             <div className="relative w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl aspect-[2/3]">
-              <Image
+              <img
                 src="/book-cover.png"
                 alt="Book cover"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 45vw, 40vw"
-                className="object-contain"
-                priority
+                className="w-full h-full object-contain"
               />
             </div>
 
@@ -155,12 +151,10 @@ export default function BookPage() {
                         key={index}
                         className="relative flex-shrink-0 h-[calc(50%-0.5rem)] w-32 overflow-hidden rounded-sm"
                       >
-                        <Image
+                        <img
                           src={review.image || "/placeholder.svg"}
                           alt={review.alt}
-                          fill
-                          sizes="128px"
-                          className="object-cover opacity-80 hover:opacity-100 transition-opacity"
+                          className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
                         />
                       </div>
                     ))}
@@ -197,12 +191,10 @@ export default function BookPage() {
                   className="group block"
                 >
                   <div className="relative aspect-video overflow-hidden rounded-sm">
-                    <Image
+                    <img
                       src="https://img.youtube.com/vi/YMiwQdrCaNI/maxresdefault.jpg"
                       alt="Audiobook video thumbnail"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Play button overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

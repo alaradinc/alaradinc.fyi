@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { VideoBackground } from '@/components/video-background'
 
 export default function PressPage() {
@@ -82,13 +81,10 @@ export default function PressPage() {
                   <div className="grid grid-cols-1 md:grid-cols-5 gap-6 p-6 rounded-sm border border-white/10 hover:border-white/20 transition-all">
                     {/* Article Image */}
                     <div className="relative aspect-video md:aspect-square overflow-hidden rounded-sm max-w-[200px]">
-                      <Image
+                      <img
                         src={article.image || '/placeholder.svg'}
                         alt={article.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 200px"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        unoptimized
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     

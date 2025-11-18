@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { VideoBackground } from '@/components/video-background'
 
 export default function VideosPage() {
@@ -118,12 +117,10 @@ export default function VideosPage() {
               >
                 {/* Video thumbnail with hover effect */}
                 <div className="relative aspect-video overflow-hidden rounded-sm border border-white/10 bg-black/20 backdrop-blur-sm">
-                  <Image
+                  <img
                     src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
                     alt={video.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
