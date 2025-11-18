@@ -42,7 +42,7 @@ In the Cloudflare Pages setup, configure:
 - **Production branch**: `main`
 - **Framework preset**: `Next.js` (or leave as "None")
 - **Build command**: `npm run pages:build` (this will automatically cd into the code directory)
-- **Build output directory**: `code/.vercel/output/static`
+- **Build output directory**: `code/out`
 - **Root directory**: Leave empty (root of repository)
 
 **Important Environment Variables** (if needed):
