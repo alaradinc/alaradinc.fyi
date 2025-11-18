@@ -2,18 +2,26 @@
 
 This guide explains how to set up automatic image optimization for your site using Cloudflare.
 
-## Option 1: Cloudflare Image Resizing (Recommended - Easiest)
+## ⚠️ Important: Paid Plans Required
 
-Cloudflare Image Resizing automatically optimizes images served from your domain. It's free and works automatically once enabled.
+Both Cloudflare Image Transformations and Polish require paid plans:
+- **Image Transformations**: Requires Cloudflare Images plan (paid)
+- **Polish**: Requires Pro plan or higher (paid)
 
-### Setup Steps:
+## Option 1: Cloudflare Image Resizing (Requires Paid Plan)
 
-1. **Enable Image Resizing in Cloudflare Dashboard:**
+Cloudflare Image Resizing uses the `/cdn-cgi/image/` endpoint, which requires either:
+- **Cloudflare Images plan** (for Image Transformations)
+- **Pro plan or higher** (for Polish feature)
+
+### Setup Steps (if you have a paid plan):
+
+1. **Enable Image Transformations:**
    - Go to your [Cloudflare Dashboard](https://dash.cloudflare.com/)
    - Select your domain (`alaradinc.fyi`)
-   - Go to **Speed** → **Optimization**
-   - Scroll down to **Image Resizing**
-   - Enable **Image Resizing** (it's free for Cloudflare Pages)
+   - Go to **Speed** → **Image Optimization**
+   - Click **Purchase Images Plan** or **Upgrade to Pro**
+   - Follow the setup instructions
 
 2. **That's it!** The code is already set up to use it.
 
@@ -30,7 +38,9 @@ Cloudflare Image Resizing automatically optimizes images served from your domain
 /cdn-cgi/image/width=1200,format=webp,quality=90/book-cover.png
 ```
 
-## Option 2: Cloudflare Images (Full Service)
+## Option 2: Cloudflare Images (Full Service - Paid)
+
+**Pricing:** $1 per 100,000 images served/month (first 100,000 free)
 
 Cloudflare Images is a full image hosting and optimization service. It requires uploading images but provides more control.
 
@@ -109,13 +119,46 @@ export function getCloudinaryImage(
 
 Similar setup to Cloudinary, with different URL structure.
 
+## Option 3: Free Alternatives (No Paid Plan Needed)
+
+If you don't want to pay for Cloudflare's image optimization, here are free alternatives:
+
+### A. Use Regular Images with Optimizations (Current Setup)
+
+The code already includes:
+- ✅ Lazy loading (`loading="lazy"`)
+- ✅ Async decoding (`decoding="async"`)
+- ✅ Responsive images with `srcset`
+- ✅ Proper `sizes` attributes
+
+**This works without any paid plans!** Just remove the Cloudflare optimization URLs.
+
+### B. Pre-optimize Images at Build Time
+
+You can optimize images before deployment:
+
+1. **Use a tool like `sharp` or `imagemin`** to convert images to WebP
+2. **Create multiple sizes** for responsive images
+3. **Store optimized versions** in your `public` folder
+
+### C. Use Free CDN Services
+
+- **Cloudinary** (free tier: 25GB storage, 25GB bandwidth/month)
+- **Imgix** (free trial, then paid)
+- **ImageKit** (free tier available)
+
 ## Current Implementation
 
 The code currently uses **Option 1 (Cloudflare Image Resizing)** which:
-- ✅ Works automatically once enabled in Cloudflare
+- ⚠️ Requires a paid Cloudflare plan
+- ✅ Works automatically once enabled
 - ✅ No code changes needed after initial setup
-- ✅ Free for Cloudflare Pages
 - ✅ Works with existing images
+
+**If you don't have a paid plan**, the images will still work but won't be optimized by Cloudflare. You can:
+1. Keep the code as-is (images work, just not optimized)
+2. Remove the optimization URLs and use regular images
+3. Use a free alternative CDN
 
 ## Testing
 
