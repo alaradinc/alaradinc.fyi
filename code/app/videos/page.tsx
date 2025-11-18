@@ -120,6 +120,8 @@ export default function VideosPage() {
                   <img
                     src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
                     alt={video.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Play button overlay */}

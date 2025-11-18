@@ -52,6 +52,9 @@ export default function BookPage() {
               <img
                 src="/book-cover.png"
                 alt="Book cover"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-contain"
               />
             </div>
@@ -154,6 +157,8 @@ export default function BookPage() {
                         <img
                           src={review.image || "/placeholder.svg"}
                           alt={review.alt}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
                         />
                       </div>
@@ -194,6 +199,8 @@ export default function BookPage() {
                     <img
                       src="https://img.youtube.com/vi/YMiwQdrCaNI/maxresdefault.jpg"
                       alt="Audiobook video thumbnail"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Play button overlay */}
