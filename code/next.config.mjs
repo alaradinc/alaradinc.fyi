@@ -1,3 +1,6 @@
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -48,7 +51,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  swcMinify: true,
 }
 
 export default nextConfig
