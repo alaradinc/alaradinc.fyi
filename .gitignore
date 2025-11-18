@@ -41,4 +41,5 @@ code/.dev.vars
 
 # Build artifacts
 code/.next/
+code/node_modules/
 

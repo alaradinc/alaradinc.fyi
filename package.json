@@ -1,0 +1,9 @@
+{
+  "name": "alaradinc-fyi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "pages:build": "cd code && npm install && npm run pages:build"
+  }
+}
+
