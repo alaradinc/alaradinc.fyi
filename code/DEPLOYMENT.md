@@ -41,9 +41,9 @@ In the Cloudflare Pages setup, configure:
 - **Project name**: `alaradinc-fyi` (or your preferred name)
 - **Production branch**: `main`
 - **Framework preset**: `Next.js` (or leave as "None")
-- **Build command**: `npm run pages:build`
-- **Build output directory**: `.vercel/output/static`
-- **Root directory**: `code` (if your Next.js app is in the `code` folder)
+- **Build command**: `npm run pages:build` (this will automatically cd into the code directory)
+- **Build output directory**: `code/.vercel/output/static`
+- **Root directory**: Leave empty (root of repository)
 
 **Important Environment Variables** (if needed):
 - No environment variables required for basic deployment
